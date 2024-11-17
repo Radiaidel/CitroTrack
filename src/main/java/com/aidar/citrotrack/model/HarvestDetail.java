@@ -17,17 +17,21 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class HarvestDetail {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private Double quantity;
+    @EmbeddedId
+    private HarvestDetailId id;
 
+
+    @MapsId("harvestId")
     @ManyToOne
-    @JoinColumn(name = "tree_id", nullable = false)
+    @JoinColumn(name = "harvest_id")
+    private Harvest harvest;
+
+    @MapsId("treeId")
+    @ManyToOne
+    @JoinColumn(name = "tree_id")
     private Tree tree;
 
-    @ManyToOne
-    @JoinColumn(name = "harvest_id", nullable = false)
-    private Harvest harvest;
+    @Positive(message = "Quantity must be a positive number")
+    private Double quantity;
 }

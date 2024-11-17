@@ -1,5 +1,6 @@
 package com.aidar.citrotrack.dto.Harvest;
 
+import com.aidar.citrotrack.dto.Field.FieldDTO;
 import com.aidar.citrotrack.dto.HarvestDetail.EmbeddableHarvestDetailDTO;
 import com.aidar.citrotrack.dto.HarvestDetail.HarvestDetailResponseDTO;
 import com.aidar.citrotrack.model.enums.Seasons;
@@ -21,5 +22,7 @@ public class HarvestResponseDTO {
     private LocalDate harvestDate;
     private Seasons season;
     private double totalQuantity;
+    private FieldDTO field;
     private List<EmbeddableHarvestDetailDTO> harvestDetails;
+
 }
