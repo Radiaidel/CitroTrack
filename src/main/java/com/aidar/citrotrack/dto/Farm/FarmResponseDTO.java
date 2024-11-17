@@ -6,6 +6,7 @@ import com.aidar.citrotrack.dto.Field.FieldResponseDTO;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,5 +26,5 @@ public class FarmResponseDTO {
 
     private LocalDate creationDate;
 
-    private List<FieldDTO> fields;
+    private List<FieldDTO> fields = new ArrayList<>();
 }
