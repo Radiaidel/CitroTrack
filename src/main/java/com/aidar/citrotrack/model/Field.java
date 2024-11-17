@@ -32,7 +32,7 @@ public class Field {
     private Farm farm;
 
 
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<Tree> trees = new ArrayList<>();
 
 }
