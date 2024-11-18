@@ -1,12 +1,9 @@
 package com.aidar.citrotrack.model;
+import com.aidar.citrotrack.validation.ValidHarvestDetail;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "harvest_details")
@@ -15,6 +12,8 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ValidHarvestDetail
+
 public class HarvestDetail {
 
 
