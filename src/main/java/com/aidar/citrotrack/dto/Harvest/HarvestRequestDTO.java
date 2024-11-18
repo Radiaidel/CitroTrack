@@ -21,7 +21,4 @@ public class HarvestRequestDTO {
     @NotNull(message = "Harvest date is required")
     @PastOrPresent(message = "Harvest date must be in the past or present")
     private LocalDate harvestDate;
-
-    @NotNull
-    private Long fieldId;
 }

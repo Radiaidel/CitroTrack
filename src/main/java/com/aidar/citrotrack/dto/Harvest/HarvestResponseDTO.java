@@ -22,7 +22,6 @@ public class HarvestResponseDTO {
     private LocalDate harvestDate;
     private Seasons season;
     private double totalQuantity;
-    private FieldDTO field;
     private List<EmbeddableHarvestDetailDTO> harvestDetails;
 
 }

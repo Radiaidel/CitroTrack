@@ -2,10 +2,8 @@ package com.aidar.citrotrack.service.impl;
 
 import com.aidar.citrotrack.dto.Harvest.HarvestRequestDTO;
 import com.aidar.citrotrack.dto.Harvest.HarvestResponseDTO;
-import com.aidar.citrotrack.model.Field;
 import com.aidar.citrotrack.model.Harvest;
 import com.aidar.citrotrack.model.enums.Seasons;
-import com.aidar.citrotrack.repository.FieldRepository;
 import com.aidar.citrotrack.repository.HarvestRepository;
 import com.aidar.citrotrack.service.HarvestService;
 import com.aidar.citrotrack.util.HarvestMapper;
@@ -19,14 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class HarvestServiceImpl implements HarvestService {
     private final HarvestRepository harvestRepository;
-    private final FieldRepository fieldRepository;
     private final HarvestMapper harvestMapper;
 
     @Autowired
-    public HarvestServiceImpl(HarvestRepository harvestRepository, HarvestMapper harvestMapper, FieldRepository fieldRepository) {
+    public HarvestServiceImpl(HarvestRepository harvestRepository, HarvestMapper harvestMapper) {
         this.harvestRepository = harvestRepository;
         this.harvestMapper = harvestMapper;
-        this.fieldRepository = fieldRepository;
     }
 
     @Override
@@ -34,11 +30,7 @@ public class HarvestServiceImpl implements HarvestService {
         LocalDate harvestDate = harvestRequestDTO.getHarvestDate();
         Seasons season = Seasons.fromDate(harvestDate);
 
-
-        Field field = fieldRepository.findById(harvestRequestDTO.getFieldId())
-                .orElseThrow(() -> new RuntimeException("Field not found with id: " + harvestRequestDTO.getFieldId()));
-
-        Harvest harvest = Harvest.builder().harvestDate(harvestDate).field(field).season(season).build();
+        Harvest harvest = Harvest.builder().harvestDate(harvestDate).season(season).build();
 
 
         harvestRepository.save(harvest);
@@ -47,14 +39,10 @@ public class HarvestServiceImpl implements HarvestService {
 
     @Override
     public HarvestResponseDTO updateHarvest(Long id, HarvestRequestDTO harvestRequestDTO) {
-        Field field = fieldRepository.findById(harvestRequestDTO.getFieldId())
-                .orElseThrow(() -> new RuntimeException("Field not found with id: " + harvestRequestDTO.getFieldId()));
-
-
-        Harvest existingHarvest = harvestRepository.findById(id)
+         harvestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Harvest not found with ID: " + id));
 
-        existingHarvest = harvestMapper.harvestRequestDTOToHarvest(harvestRequestDTO);
+        Harvest existingHarvest = harvestMapper.harvestRequestDTOToHarvest(harvestRequestDTO);
 
         Seasons season = Seasons.fromDate(existingHarvest.getHarvestDate());
         existingHarvest.setSeason(season);

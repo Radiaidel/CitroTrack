@@ -19,6 +19,4 @@ public class FieldResponseDTO {
     private Double area;
     private FarmDTO farm;
     private List<TreeDTO> trees;
-    private List<HarvestDTO> harvests;
-
 }

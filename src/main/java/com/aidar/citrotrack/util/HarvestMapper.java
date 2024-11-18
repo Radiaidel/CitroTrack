@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface HarvestMapper {
 
-    @Mapping(source = "fieldId", target = "field.id")
     Harvest harvestRequestDTOToHarvest(HarvestRequestDTO harvestRequestDTO);
 
     HarvestResponseDTO harvestToHarvestResponseDTO(Harvest harvest);
