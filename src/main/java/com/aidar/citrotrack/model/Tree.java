@@ -1,6 +1,7 @@
 package com.aidar.citrotrack.model;
 
 import com.aidar.citrotrack.model.enums.TreeProductivity;
+import com.aidar.citrotrack.validation.ValidTree;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -17,6 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "Trees")
+@ValidTree
 public class Tree {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
