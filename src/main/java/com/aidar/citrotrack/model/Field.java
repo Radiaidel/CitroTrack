@@ -1,5 +1,6 @@
 package com.aidar.citrotrack.model;
 
+import com.aidar.citrotrack.Validation.ValidField;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import lombok.*;
 @Setter
 @Entity
 @Table(name = "Fields")
+@ValidField
 public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
