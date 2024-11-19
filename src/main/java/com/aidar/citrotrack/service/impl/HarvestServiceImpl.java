@@ -8,7 +8,7 @@ import com.aidar.citrotrack.model.enums.Seasons;
 import com.aidar.citrotrack.repository.FieldRepository;
 import com.aidar.citrotrack.repository.HarvestRepository;
 import com.aidar.citrotrack.service.HarvestService;
-import com.aidar.citrotrack.util.HarvestMapper;
+import com.aidar.citrotrack.mapper.HarvestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

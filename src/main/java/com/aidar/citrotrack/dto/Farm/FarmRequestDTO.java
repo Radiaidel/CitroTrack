@@ -24,4 +24,5 @@ public class FarmRequestDTO {
 
     @PastOrPresent(message = "Creation date must be in the past or present")
     private LocalDate creationDate;
+
 }

@@ -7,7 +7,7 @@ import com.aidar.citrotrack.model.Field;
 import com.aidar.citrotrack.repository.FarmRepository;
 import com.aidar.citrotrack.repository.FieldRepository;
 import com.aidar.citrotrack.service.FieldService;
-import com.aidar.citrotrack.util.FieldMapper;
+import com.aidar.citrotrack.mapper.FieldMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

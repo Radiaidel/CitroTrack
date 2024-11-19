@@ -5,7 +5,7 @@ import com.aidar.citrotrack.dto.Sale.SaleResponseDTO;
 import com.aidar.citrotrack.model.Sale;
 import com.aidar.citrotrack.repository.SaleRepository;
 import com.aidar.citrotrack.service.SaleService;
-import com.aidar.citrotrack.util.SaleMapper;
+import com.aidar.citrotrack.mapper.SaleMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.aidar.citrotrack.controller;
 
+import com.aidar.citrotrack.dto.Farm.FarmDTO;
 import com.aidar.citrotrack.dto.Farm.FarmRequestDTO;
 import com.aidar.citrotrack.dto.Farm.FarmResponseDTO;
 import com.aidar.citrotrack.model.Farm;
@@ -26,9 +27,8 @@ public class FarmRestController {
     }
 
     @PostMapping
-    public ResponseEntity<FarmResponseDTO> createFarm(@Valid @RequestBody  FarmRequestDTO farmRequestDTO){
-        FarmResponseDTO createdfarm = farmService.createFarm(farmRequestDTO);
-        return ResponseEntity.ok(createdfarm);
+    public ResponseEntity<FarmDTO> createFarm(@Valid @RequestBody  FarmRequestDTO farmRequestDTO){
+        return ResponseEntity.ok(farmService.createFarm(farmRequestDTO));
     }
     @PutMapping("/{id}")
     public ResponseEntity<FarmResponseDTO> updateFarm(@PathVariable Long id ,@Valid @RequestBody FarmRequestDTO farmRequestDTO){

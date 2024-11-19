@@ -10,7 +10,7 @@ import com.aidar.citrotrack.repository.HarvestDetailRepository;
 import com.aidar.citrotrack.repository.HarvestRepository;
 import com.aidar.citrotrack.repository.TreeRepository;
 import com.aidar.citrotrack.service.HarvestDetailService;
-import com.aidar.citrotrack.util.HarvestDetailMapper;
+import com.aidar.citrotrack.mapper.HarvestDetailMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

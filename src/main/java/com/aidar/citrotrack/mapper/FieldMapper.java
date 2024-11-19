@@ -1,4 +1,4 @@
-package com.aidar.citrotrack.util;
+package com.aidar.citrotrack.mapper;
 
 import com.aidar.citrotrack.dto.Field.FieldRequestDTO;
 import com.aidar.citrotrack.dto.Field.FieldResponseDTO;
@@ -12,6 +12,5 @@ public interface FieldMapper {
     FieldResponseDTO fieldToFieldResponseDTO(Field field);
 
     @Mapping(source = "farmId", target = "farm.id")
-
     Field fieldRequestDTOToField(FieldRequestDTO fieldRequestDTO);
 }

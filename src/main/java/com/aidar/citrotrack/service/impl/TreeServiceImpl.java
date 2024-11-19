@@ -2,13 +2,12 @@ package com.aidar.citrotrack.service.impl;
 
 import com.aidar.citrotrack.dto.Tree.TreeRequestDTO;
 import com.aidar.citrotrack.dto.Tree.TreeResponseDTO;
-import com.aidar.citrotrack.model.Farm;
 import com.aidar.citrotrack.model.Field;
 import com.aidar.citrotrack.model.Tree;
 import com.aidar.citrotrack.repository.FieldRepository;
 import com.aidar.citrotrack.repository.TreeRepository;
 import com.aidar.citrotrack.service.TreeService;
-import com.aidar.citrotrack.util.TreeMapper;
+import com.aidar.citrotrack.mapper.TreeMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

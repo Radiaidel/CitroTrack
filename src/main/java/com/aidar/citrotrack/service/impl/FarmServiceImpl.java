@@ -1,11 +1,12 @@
 package com.aidar.citrotrack.service.impl;
 
+import com.aidar.citrotrack.dto.Farm.FarmDTO;
 import com.aidar.citrotrack.dto.Farm.FarmRequestDTO;
 import com.aidar.citrotrack.dto.Farm.FarmResponseDTO;
 import com.aidar.citrotrack.model.Farm;
 import com.aidar.citrotrack.repository.FarmRepository;
 import com.aidar.citrotrack.service.FarmService;
-import com.aidar.citrotrack.util.FarmMapper;
+import com.aidar.citrotrack.mapper.FarmMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class FarmServiceImpl implements FarmService {
     }
 
     @Override
-    public FarmResponseDTO createFarm(FarmRequestDTO farmRequestDTO) {
+    public FarmDTO createFarm(FarmRequestDTO farmRequestDTO) {
         Farm farm = Farm.builder()
                 .name(farmRequestDTO.getName())
                 .location(farmRequestDTO.getLocation())
@@ -38,7 +39,7 @@ public class FarmServiceImpl implements FarmService {
 
         farm = farmRepository.save(farm);
 
-        return farmMapper.farmToFarmResponseDTO(farm);
+        return farmMapper.farmToFarmDTO(farm);
     }
 
     @Override
@@ -56,18 +57,31 @@ public class FarmServiceImpl implements FarmService {
         return farmMapper.farmToFarmResponseDTO(farm);
     }
 
+//    @Override
+//    public FarmResponseDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO) {
+//        Farm farm = farmRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + id));
+//
+//
+//        farm = farmMapper.farmRequestDTOToFarm(farmRequestDTO);
+//        farm.setId(id);
+//        farm = farmRepository.save(farm);
+//
+////        Farm updatedFarm = farmRepository.save(farmMapper.farmRequestDTOToFarm(farmRequestDTO));
+//
+//
+//        return farmMapper.farmToFarmResponseDTO(farm);
+//    }
+
     @Override
     public FarmResponseDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO) {
-        Farm farm = farmRepository.findById(id)
+        Farm existingFarm = farmRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + id));
 
+        farmMapper.updateFarmFromDTO(farmRequestDTO, existingFarm);
+        Farm savedFarm = farmRepository.save(existingFarm);
 
-        farm = farmMapper.farmRequestDTOToFarm(farmRequestDTO);
-        farm.setId(id);
-        farm = farmRepository.save(farm);
-
-
-        return farmMapper.farmToFarmResponseDTO(farm);
+        return farmMapper.farmToFarmResponseDTO(savedFarm);
     }
 
     @Override

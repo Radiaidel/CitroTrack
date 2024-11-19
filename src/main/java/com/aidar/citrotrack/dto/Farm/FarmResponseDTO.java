@@ -26,5 +26,5 @@ public class FarmResponseDTO {
 
     private LocalDate creationDate;
 
-    private List<FieldDTO> fields = new ArrayList<>();
+    private List<FieldDTO> fields;
 }
