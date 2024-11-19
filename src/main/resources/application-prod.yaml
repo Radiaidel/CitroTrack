@@ -1,0 +1,20 @@
+# application-prod.yaml
+
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db-server:5432/citroTrack_db
+    username: postgres
+    password: aidar
+  jpa:
+    hibernate:
+      ddl-auto: none  # Ne pas mettre à jour la base de données en production
+    show-sql: false
+
+  # Disable swagger in production
+  swagger:
+    enabled: false
+
+  # Logging configuration
+  logging:
+    level:
+      root: ERROR

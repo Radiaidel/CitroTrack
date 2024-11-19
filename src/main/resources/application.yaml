@@ -1,23 +1,5 @@
-# Logging level
-logging:
-  level:
-    root: DEBUG
-
-# JPA/Hibernate configuration for development
+# application.yaml
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  profiles:
+    active: dev
 
-  # Data source configuration for development
-  datasource:
-    url: jdbc:postgresql://localhost:5432/citroTrack_db
-    username: postgres
-    password: aidar
-
-
-  # Enable/disable specific features
-  devtools:
-    restart:
-      enabled: true
