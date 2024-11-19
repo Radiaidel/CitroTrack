@@ -9,7 +9,10 @@ import com.aidar.citrotrack.util.FarmMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,5 +76,19 @@ public class FarmServiceImpl implements FarmService {
             throw new RuntimeException("Farm not found with ID: " + id);
         }
         farmRepository.deleteById(id);
+    }
+
+@Override
+    public List<FarmResponseDTO> searchFarms(String name, String location, Double minArea, Double maxArea, LocalDate creationDateFrom, LocalDate creationDateTo) {
+        Map<String, Object> criteria = new HashMap<>();
+        if (name != null && !name.isEmpty()) criteria.put("name", name);
+        if (location != null && !location.isEmpty()) criteria.put("location", location);
+        if (minArea != null) criteria.put("minArea", minArea);
+        if (maxArea != null) criteria.put("maxArea", maxArea);
+        if (creationDateFrom != null) criteria.put("creationDateFrom", creationDateFrom);
+        if (creationDateTo != null) criteria.put("creationDateTo", creationDateTo);
+
+
+        return farmRepository.searchFarms(criteria).stream().map(farmMapper::farmToFarmResponseDTO).collect(Collectors.toList());
     }
 }

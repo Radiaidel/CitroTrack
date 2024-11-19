@@ -1,4 +1,4 @@
-package com.aidar.citrotrack.Validation;
+package com.aidar.citrotrack.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldValidator.class)
 public @interface ValidField {
-    String message() default "Les contraintes pour les champs ne sont pas respectées.";
+    String message() default "Invalid Field data ";
 
     Class<?>[] groups() default {};
 

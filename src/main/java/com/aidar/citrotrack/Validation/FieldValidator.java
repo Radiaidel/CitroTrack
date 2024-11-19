@@ -1,4 +1,4 @@
-package com.aidar.citrotrack.Validation;
+package com.aidar.citrotrack.validation;
 
 import com.aidar.citrotrack.model.Field;
 import jakarta.validation.ConstraintValidator;
