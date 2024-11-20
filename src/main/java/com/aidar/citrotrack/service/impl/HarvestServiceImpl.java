@@ -19,14 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class HarvestServiceImpl implements HarvestService {
     private final HarvestRepository harvestRepository;
-    private final FieldRepository fieldRepository;
     private final HarvestMapper harvestMapper;
 
     @Autowired
     public HarvestServiceImpl(HarvestRepository harvestRepository, HarvestMapper harvestMapper, FieldRepository fieldRepository) {
         this.harvestRepository = harvestRepository;
         this.harvestMapper = harvestMapper;
-        this.fieldRepository = fieldRepository;
     }
 
     @Override
@@ -34,11 +32,7 @@ public class HarvestServiceImpl implements HarvestService {
         LocalDate harvestDate = harvestRequestDTO.getHarvestDate();
         Seasons season = Seasons.fromDate(harvestDate);
 
-
-        Field field = fieldRepository.findById(harvestRequestDTO.getFieldId())
-                .orElseThrow(() -> new RuntimeException("Field not found with id: " + harvestRequestDTO.getFieldId()));
-
-        Harvest harvest = Harvest.builder().harvestDate(harvestDate).field(field).season(season).build();
+        Harvest harvest = Harvest.builder().harvestDate(harvestDate).season(season).build();
 
 
         harvestRepository.save(harvest);
@@ -47,8 +41,6 @@ public class HarvestServiceImpl implements HarvestService {
 
     @Override
     public HarvestResponseDTO updateHarvest(Long id, HarvestRequestDTO harvestRequestDTO) {
-        Field field = fieldRepository.findById(harvestRequestDTO.getFieldId())
-                .orElseThrow(() -> new RuntimeException("Field not found with id: " + harvestRequestDTO.getFieldId()));
 
 
         Harvest existingHarvest = harvestRepository.findById(id)
