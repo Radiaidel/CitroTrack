@@ -6,7 +6,7 @@ import com.aidar.citrotrack.model.Harvest;
 import com.aidar.citrotrack.model.enums.Seasons;
 import com.aidar.citrotrack.repository.HarvestRepository;
 import com.aidar.citrotrack.service.HarvestService;
-import com.aidar.citrotrack.util.HarvestMapper;
+import com.aidar.citrotrack.mapper.HarvestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,9 @@ public class HarvestServiceImpl implements HarvestService {
 
     @Override
     public HarvestResponseDTO updateHarvest(Long id, HarvestRequestDTO harvestRequestDTO) {
-         harvestRepository.findById(id)
+
+
+        Harvest existingHarvest = harvestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Harvest not found with ID: " + id));
 
         Harvest existingHarvest = harvestMapper.harvestRequestDTOToHarvest(harvestRequestDTO);

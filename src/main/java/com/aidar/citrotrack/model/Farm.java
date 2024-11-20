@@ -37,6 +37,6 @@ public class Farm {
 
     @OneToMany(mappedBy = "farm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Size(max = 10, message = "A farm cannot have more than 10 fields")
-    private List<Field> fields = new ArrayList<>();
+    private List<Field> fields ;
 
 }

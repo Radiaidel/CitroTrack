@@ -1,4 +1,4 @@
-package com.aidar.citrotrack.util;
+package com.aidar.citrotrack.mapper;
 
 import com.aidar.citrotrack.dto.HarvestDetail.HarvestDetailRequestDTO;
 import com.aidar.citrotrack.dto.HarvestDetail.HarvestDetailResponseDTO;

@@ -1,6 +1,6 @@
 package com.aidar.citrotrack.model;
 
-import com.aidar.citrotrack.Validation.ValidField;
+import com.aidar.citrotrack.validation.ValidField;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
