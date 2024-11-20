@@ -35,4 +35,7 @@ public class Harvest {
 
     @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HarvestDetail> harvestDetails;
+
+    @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Sale> SaleList;
 }
