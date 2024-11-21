@@ -1,6 +1,7 @@
 package com.aidar.citrotrack.validation;
 
 import com.aidar.citrotrack.model.HarvestDetail;
+import com.aidar.citrotrack.model.enums.TreeProductivity;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -14,20 +15,35 @@ public class HarvestDetailValidator implements ConstraintValidator<ValidHarvestD
         context.disableDefaultConstraintViolation();
 
         LocalDate plantingDate = harvestDetail.getTree().getPlantingDate();
-        if (plantingDate != null && plantingDate.plusYears(20).isBefore(LocalDate.now())) {
+        if (plantingDate == null) {
+            context.buildConstraintViolationWithTemplate(
+                            "Error: Planting date is required for tree validation.")
+                    .addPropertyNode("tree")
+                    .addConstraintViolation();
+            return false;
+        }
+
+        int treeAge = TreeProductivity.calculateAge(plantingDate);
+
+        TreeProductivity productivity = TreeProductivity.getProductivityByAge(treeAge);
+        if (productivity == TreeProductivity.NON_PRODUCTIVE) {
             context.buildConstraintViolationWithTemplate(
                             "Error: Trees older than 20 years are considered non-productive and cannot be harvested.")
                     .addPropertyNode("tree")
                     .addConstraintViolation();
             isValid = false;
         }
-        double maxProductivity = harvestDetail.getTree().getProductivity().getProductivityAge(); // Productivité déjà calculée
+
+        double maxProductivity = productivity.getProductivity();
         if (harvestDetail.getQuantity() > maxProductivity) {
             context.buildConstraintViolationWithTemplate(
                             "Error: Harvest quantity exceeds the tree's annual productivity (" + maxProductivity + " kg).")
                     .addPropertyNode("quantity")
                     .addConstraintViolation();
             isValid = false;
+        }
+        if (harvestDetail.getId() != null) {
+            return isValid;
         }
 
         boolean alreadyHarvested = harvestDetail.getTree().getHarvestDetails()

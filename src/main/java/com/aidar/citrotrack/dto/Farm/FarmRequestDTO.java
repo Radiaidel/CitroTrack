@@ -19,7 +19,7 @@ public class FarmRequestDTO {
     private String location;
 
     @NotNull(message = "Total area is required")
-    @DecimalMin(value = "0.2", message = "Minimum area is 0.1 hectare")
+    @DecimalMin(value = "0.2", message = "Minimum area is 0.2 hectare")
     private Double totalArea;
 
     @PastOrPresent(message = "Creation date must be in the past or present")

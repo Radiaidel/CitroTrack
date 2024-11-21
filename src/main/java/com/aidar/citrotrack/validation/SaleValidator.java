@@ -18,14 +18,17 @@ public class SaleValidator implements ConstraintValidator<ValidSale, Sale> {
                     .addConstraintViolation();
             return false;
         }
+        double totalQuantitySold = 0;
 
-        double totalQuantitySold = harvest.getSaleList().stream()
-                .mapToDouble(Sale::getQuantitySold)
-                .sum();
+        if (harvest.getSaleList() != null) {
+            totalQuantitySold = harvest.getSaleList().stream()
+                    .mapToDouble(Sale::getQuantitySold)
+                    .sum();
+        }
 
-        double quantitySold = sale.getQuantitySold();
         double remainingQuantity = harvest.getTotalQuantity() - totalQuantitySold;
 
+        double quantitySold = sale.getQuantitySold();
         if (quantitySold > remainingQuantity) {
             context.buildConstraintViolationWithTemplate(
                             "Error: The quantity sold (" + quantitySold +
@@ -42,6 +45,7 @@ public class SaleValidator implements ConstraintValidator<ValidSale, Sale> {
                     .addConstraintViolation();
             isValid = false;
         }
+
 
         return isValid;
     }

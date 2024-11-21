@@ -15,7 +15,7 @@ public @interface ValidSale {
 
     String message() default " invalid data for sale";
 
-    Class<?>[] group() default {};
+    Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default{};
 }

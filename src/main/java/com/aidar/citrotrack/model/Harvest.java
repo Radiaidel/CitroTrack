@@ -7,6 +7,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -30,12 +31,13 @@ public class Harvest {
     @Enumerated(EnumType.STRING)
     private Seasons season;
 
-    @Transient
-    private double totalQuantity;
+    @Column(name = "total_quantity", nullable = false)
+    private double totalQuantity = 0.0;
+
+    @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<HarvestDetail> harvestDetails= new ArrayList<>();
 
     @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HarvestDetail> harvestDetails;
+    private List<Sale> SaleList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Sale> SaleList;
 }

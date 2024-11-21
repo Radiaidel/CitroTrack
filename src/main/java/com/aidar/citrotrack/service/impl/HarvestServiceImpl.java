@@ -41,7 +41,7 @@ public class HarvestServiceImpl implements HarvestService {
     public HarvestResponseDTO updateHarvest(Long id, HarvestRequestDTO harvestRequestDTO) {
 
 
-        Harvest existingHarvest = harvestRepository.findById(id)
+        harvestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Harvest not found with ID: " + id));
 
         Harvest existingHarvest = harvestMapper.harvestRequestDTOToHarvest(harvestRequestDTO);

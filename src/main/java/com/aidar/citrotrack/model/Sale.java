@@ -1,5 +1,6 @@
 package com.aidar.citrotrack.model;
 
+import com.aidar.citrotrack.validation.ValidSale;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "Sales")
+@ValidSale
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +39,7 @@ public class Sale {
 
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "harvest_id")
     private Harvest harvest;
 }

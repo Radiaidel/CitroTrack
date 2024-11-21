@@ -47,6 +47,8 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         harvestDetail.setTree(tree);
         harvestDetail.setQuantity(harvestDetailRequestDTO.quantity());
 
+        recalculateTotalQuantity(harvest);
+
         HarvestDetail savedHarvestDetail = harvestDetailRepository.save(harvestDetail);
         return harvestDetailMapper.harvestDetailToHarvestDetailResponseDTO(savedHarvestDetail);
     }
@@ -72,21 +74,42 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
     public HarvestDetailResponseDTO updateHarvestDetail(Long harvestId, Long treeId,
                                                         HarvestDetailRequestDTO harvestDetailRequestDTO) {
         HarvestDetailId id = new HarvestDetailId(harvestId, treeId);
+
         HarvestDetail existingHarvestDetail = harvestDetailRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Harvest detail not found"));
+                .orElse(null);
 
-        existingHarvestDetail.setQuantity(harvestDetailRequestDTO.quantity());
-
-        HarvestDetail updatedHarvestDetail = harvestDetailRepository.save(existingHarvestDetail);
-        return harvestDetailMapper.harvestDetailToHarvestDetailResponseDTO(updatedHarvestDetail);
+        if (existingHarvestDetail != null) {
+            existingHarvestDetail.setQuantity(harvestDetailRequestDTO.quantity());
+            HarvestDetail updatedHarvestDetail = harvestDetailRepository.save(existingHarvestDetail);
+            return harvestDetailMapper.harvestDetailToHarvestDetailResponseDTO(updatedHarvestDetail);
+        } else {
+            throw new RuntimeException("Harvest detail not found for this harvest and tree combination.");
+        }
     }
 
+    @Transactional
     @Override
     public void deleteHarvestDetail(Long harvestId, Long treeId) {
-        HarvestDetailId id = new HarvestDetailId(harvestId, treeId);
-        if (!harvestDetailRepository.existsById(id)) {
-            throw new RuntimeException("Harvest detail not found");
-        }
-        harvestDetailRepository.deleteById(id);
+        HarvestDetailId id =  HarvestDetailId.builder().harvestId(harvestId).treeId(treeId).build();
+
+//        recalculateTotalQuantity(harvest);
+        HarvestDetail harvestDelete = harvestDetailRepository.findById(id).orElseThrow(() -> new RuntimeException("Harvest detail not found"));
+
+
+//        harvestDetailRepository.delete(harvestDelete);
+        harvestDetailRepository.deleteByCustomQuery(id);
+
+        harvestDetailRepository.flush();
+
     }
+
+
+    private void recalculateTotalQuantity(Harvest harvest) {
+        double total = harvest.getHarvestDetails().stream()
+                .mapToDouble(HarvestDetail::getQuantity)
+                .sum();
+        harvest.setTotalQuantity(total);
+        harvestRepository.save(harvest);
+    }
+
 }

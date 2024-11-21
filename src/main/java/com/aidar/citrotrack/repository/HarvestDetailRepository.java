@@ -3,6 +3,7 @@ package com.aidar.citrotrack.repository;
 import com.aidar.citrotrack.model.HarvestDetail;
 import com.aidar.citrotrack.model.HarvestDetailId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -13,5 +14,10 @@ import java.util.List;
 public interface HarvestDetailRepository extends JpaRepository<HarvestDetail , HarvestDetailId> {
     @Query("SELECT hd FROM HarvestDetail hd WHERE hd.harvest.id = :harvestId")
     List<HarvestDetail> findByHarvestId(@Param("harvestId") Long harvestId);
+
+    @Modifying
+    @Query("DELETE FROM HarvestDetail hd WHERE hd.id = :id")
+    void deleteByCustomQuery(@Param("id") HarvestDetailId id);
+
 
 }
