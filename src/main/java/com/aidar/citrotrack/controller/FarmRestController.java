@@ -31,8 +31,8 @@ public class FarmRestController {
         return ResponseEntity.ok(farmService.createFarm(farmRequestDTO));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<FarmResponseDTO> updateFarm(@PathVariable Long id ,@Valid @RequestBody FarmRequestDTO farmRequestDTO){
-        FarmResponseDTO updatedfarm = farmService.updateFarm(id , farmRequestDTO);
+    public ResponseEntity<FarmDTO> updateFarm(@PathVariable Long id ,@Valid @RequestBody FarmRequestDTO farmRequestDTO){
+        FarmDTO updatedfarm = farmService.updateFarm(id , farmRequestDTO);
         return ResponseEntity.ok(updatedfarm);
     }
     @DeleteMapping("/{id}")

@@ -120,7 +120,7 @@ public class FarmServiceImplTest {
         when(farmRepository.save(farm)).thenReturn(farm);
         when(farmMapper.farmToFarmResponseDTO(farm)).thenReturn(farmResponseDTO);
 
-        FarmResponseDTO result = farmService.updateFarm(1L, farmRequestDTO);
+        FarmDTO result = farmService.updateFarm(1L, farmRequestDTO);
 
         assertNotNull(result);
         assertEquals("Updated Farm", result.getName());

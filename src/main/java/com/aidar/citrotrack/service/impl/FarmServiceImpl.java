@@ -74,14 +74,16 @@ public class FarmServiceImpl implements FarmService {
 //    }
 
     @Override
-    public FarmResponseDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO) {
-        Farm existingFarm = farmRepository.findById(id)
+    public FarmDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO) {
+        Farm existingFarm;
+        farmRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + id));
 
-        farmMapper.updateFarmFromDTO(farmRequestDTO, existingFarm);
+//        farmMapper.updateFarmFromDTO(farmRequestDTO, existingFarm);
+        existingFarm = farmMapper.farmRequestDTOToFarm(farmRequestDTO);
         Farm savedFarm = farmRepository.save(existingFarm);
 
-        return farmMapper.farmToFarmResponseDTO(savedFarm);
+        return farmMapper.farmToFarmDTO(savedFarm);
     }
 
     @Override
@@ -92,7 +94,7 @@ public class FarmServiceImpl implements FarmService {
         farmRepository.deleteById(id);
     }
 
-@Override
+    @Override
     public List<FarmResponseDTO> searchFarms(String name, String location, Double minArea, Double maxArea, LocalDate creationDateFrom, LocalDate creationDateTo) {
         Map<String, Object> criteria = new HashMap<>();
         if (name != null && !name.isEmpty()) criteria.put("name", name);
