@@ -14,8 +14,8 @@ public interface SaleMapper {
     @Mapping(source = "customer.fullName", target = "customer.fullName")
     @Mapping(source = "customer.email", target = "customer.email")
     @Mapping(source = "harvestId", target = "harvest.id")
-    Sale saleRequestDTOToSale(SaleRequestDTO saleRequestDTO);
+    Sale toEntity(SaleRequestDTO saleRequestDTO);
 
-    SaleResponseDTO saleToSaleResponseDTO(Sale sale);
+    SaleResponseDTO toResponse(Sale sale);
 
 }

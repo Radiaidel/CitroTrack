@@ -42,7 +42,7 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
             throw new IllegalArgumentException("Harvest detail already exists for this harvest and tree");
         }
 
-        HarvestDetail harvestDetail = harvestDetailMapper.harvestDetailRequestDTOToHarvestDetail(harvestDetailRequestDTO);
+        HarvestDetail harvestDetail = harvestDetailMapper.toEntity(harvestDetailRequestDTO);
         harvestDetail.setHarvest(harvest);
         harvestDetail.setTree(tree);
         harvestDetail.setQuantity(harvestDetailRequestDTO.quantity());
@@ -50,7 +50,7 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         recalculateTotalQuantity(harvest);
 
         HarvestDetail savedHarvestDetail = harvestDetailRepository.save(harvestDetail);
-        return harvestDetailMapper.harvestDetailToHarvestDetailResponseDTO(savedHarvestDetail);
+        return harvestDetailMapper.toResponse(savedHarvestDetail);
     }
 
     @Override
@@ -59,14 +59,14 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         HarvestDetailId id = new HarvestDetailId(harvestId, treeId);
         HarvestDetail harvestDetail = harvestDetailRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Harvest detail not found"));
-        return harvestDetailMapper.harvestDetailToHarvestDetailResponseDTO(harvestDetail);
+        return harvestDetailMapper.toResponse(harvestDetail);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<HarvestDetailResponseDTO> getHarvestDetailsByHarvest(Long harvestId) {
         return harvestDetailRepository.findByHarvestId(harvestId).stream()
-                .map(harvestDetailMapper::harvestDetailToHarvestDetailResponseDTO)
+                .map(harvestDetailMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -81,7 +81,7 @@ public class HarvestDetailServiceImpl implements HarvestDetailService {
         if (existingHarvestDetail != null) {
             existingHarvestDetail.setQuantity(harvestDetailRequestDTO.quantity());
             HarvestDetail updatedHarvestDetail = harvestDetailRepository.save(existingHarvestDetail);
-            return harvestDetailMapper.harvestDetailToHarvestDetailResponseDTO(updatedHarvestDetail);
+            return harvestDetailMapper.toResponse(updatedHarvestDetail);
         } else {
             throw new RuntimeException("Harvest detail not found for this harvest and tree combination.");
         }

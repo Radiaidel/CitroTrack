@@ -35,7 +35,7 @@ public class Field {
 
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
-    private List<Tree> trees = new ArrayList<>();
+    private List<Tree> trees = new ArrayList<Tree>();
 
 
 }

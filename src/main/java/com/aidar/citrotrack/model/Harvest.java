@@ -35,9 +35,9 @@ public class Harvest {
     private double totalQuantity = 0.0;
 
     @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<HarvestDetail> harvestDetails= new ArrayList<>();
+    private List<HarvestDetail> harvestDetails= new ArrayList<HarvestDetail>();
 
     @OneToMany(mappedBy = "harvest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Sale> SaleList = new ArrayList<>();
+    private List<Sale> SaleList = new ArrayList<Sale>();
 
 }

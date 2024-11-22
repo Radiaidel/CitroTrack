@@ -24,31 +24,31 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public SaleResponseDTO createSale(SaleRequestDTO saleRequestDTO) {
-        Sale sale = saleMapper.saleRequestDTOToSale(saleRequestDTO);
+        Sale sale = saleMapper.toEntity(saleRequestDTO);
         Sale savedSale = saleRepository.save(sale);
-        return saleMapper.saleToSaleResponseDTO(savedSale);
+        return saleMapper.toResponse(savedSale);
     }
 
     @Override
     public SaleResponseDTO getSaleById(Long id) {
         Sale sale = saleRepository.findById(id).orElseThrow(() -> new RuntimeException("Sale not found"));
-        return saleMapper.saleToSaleResponseDTO(sale);
+        return saleMapper.toResponse(sale);
     }
 
     @Override
     public List<SaleResponseDTO> getAllSales() {
         List<Sale> sales = saleRepository.findAll();
         return sales.stream()
-                .map(saleMapper::saleToSaleResponseDTO)
+                .map(saleMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public SaleResponseDTO updateSale(Long id, SaleRequestDTO saleRequestDTO) {
         Sale sale = saleRepository.findById(id).orElseThrow(() -> new RuntimeException("Sale not found"));
-        sale = saleMapper.saleRequestDTOToSale(saleRequestDTO);
+        sale = saleMapper.toEntity(saleRequestDTO);
         Sale updatedSale = saleRepository.save(sale);
-        return saleMapper.saleToSaleResponseDTO(updatedSale);
+        return saleMapper.toResponse(updatedSale);
     }
 
     @Override

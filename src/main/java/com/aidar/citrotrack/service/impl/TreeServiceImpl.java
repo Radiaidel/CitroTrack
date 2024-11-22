@@ -41,7 +41,7 @@ public class TreeServiceImpl implements TreeService {
         tree.setAge(age);
         tree.setProductivity(TreeProductivity.getProductivityByAge(age));
         tree.setHarvestDetails(new ArrayList<>());
-        return treeMapper.treeToTreeResponseDTO(tree);
+        return treeMapper.toResponse(tree);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TreeServiceImpl implements TreeService {
                 .orElseThrow(() -> new RuntimeException("Field not found with ID: " + treeRequestDTO.getFieldId()));
 
 
-        Tree tree = treeMapper.treeRequestDTOToTree(treeRequestDTO);
+        Tree tree = treeMapper.toEntity(treeRequestDTO);
         tree.setId(id);
 
         tree = treeRepository.save(tree);
@@ -64,7 +64,7 @@ public class TreeServiceImpl implements TreeService {
         tree.setProductivity(TreeProductivity.getProductivityByAge(age));
         tree.setHarvestDetails(new ArrayList<>());
 
-        return treeMapper.treeToTreeResponseDTO(tree);
+        return treeMapper.toResponse(tree);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class TreeServiceImpl implements TreeService {
         tree.setProductivity(TreeProductivity.getProductivityByAge(age));
         tree.setHarvestDetails(new ArrayList<>());
 
-        return treeMapper.treeToTreeResponseDTO(tree);
+        return treeMapper.toResponse(tree);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class TreeServiceImpl implements TreeService {
                     tree.setProductivity(TreeProductivity.getProductivityByAge(age));
                     tree.setHarvestDetails(new ArrayList<>());
                 })
-                .map(treeMapper::treeToTreeResponseDTO)
+                .map(treeMapper::toResponse)
                 .collect(Collectors.toList());
     }
 }

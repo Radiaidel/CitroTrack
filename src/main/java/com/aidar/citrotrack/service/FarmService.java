@@ -9,13 +9,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface FarmService {
-    FarmDTO createFarm(FarmRequestDTO farmRequestDTO);
+    FarmResponseDTO createFarm(FarmRequestDTO farmRequestDTO);
 
     List<FarmResponseDTO> getAllFarms();
 
     FarmResponseDTO getFarmById(Long id);
 
-    FarmDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO);
+    FarmResponseDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO);
 
     void deleteFarm(Long id);
 

@@ -12,10 +12,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface FieldMapper {
 
-    FieldResponseDTO fieldToFieldResponseDTO(Field field);
-
-    FieldDTO fieldToFieldDTO(Field field);
+    FieldResponseDTO toResponse(Field field);
 
     @Mapping(source = "farmId", target = "farm.id")
-    Field fieldRequestDTOToField(FieldRequestDTO fieldRequestDTO);
+    Field toEntity(FieldRequestDTO fieldRequestDTO);
 }

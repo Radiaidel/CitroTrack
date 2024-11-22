@@ -27,12 +27,12 @@ public class FarmRestController {
     }
 
     @PostMapping
-    public ResponseEntity<FarmDTO> createFarm(@Valid @RequestBody  FarmRequestDTO farmRequestDTO){
+    public ResponseEntity<FarmResponseDTO> createFarm(@Valid @RequestBody  FarmRequestDTO farmRequestDTO){
         return ResponseEntity.ok(farmService.createFarm(farmRequestDTO));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<FarmDTO> updateFarm(@PathVariable Long id ,@Valid @RequestBody FarmRequestDTO farmRequestDTO){
-        FarmDTO updatedfarm = farmService.updateFarm(id , farmRequestDTO);
+    public ResponseEntity<FarmResponseDTO> updateFarm(@PathVariable Long id ,@Valid @RequestBody FarmRequestDTO farmRequestDTO){
+        FarmResponseDTO updatedfarm = farmService.updateFarm(id , farmRequestDTO);
         return ResponseEntity.ok(updatedfarm);
     }
     @DeleteMapping("/{id}")

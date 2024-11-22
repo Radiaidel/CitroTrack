@@ -34,7 +34,7 @@ public class HarvestServiceImpl implements HarvestService {
 
 
         harvestRepository.save(harvest);
-        return harvestMapper.harvestToHarvestResponseDTO(harvest);
+        return harvestMapper.toResponse(harvest);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class HarvestServiceImpl implements HarvestService {
         harvestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Harvest not found with ID: " + id));
 
-        Harvest existingHarvest = harvestMapper.harvestRequestDTOToHarvest(harvestRequestDTO);
+        Harvest existingHarvest = harvestMapper.toEntity(harvestRequestDTO);
 
         Seasons season = Seasons.fromDate(existingHarvest.getHarvestDate());
         existingHarvest.setSeason(season);
@@ -52,7 +52,7 @@ public class HarvestServiceImpl implements HarvestService {
         Harvest updatedHarvest = harvestRepository.save(existingHarvest);
 
 
-        return harvestMapper.harvestToHarvestResponseDTO(updatedHarvest);
+        return harvestMapper.toResponse(updatedHarvest);
     }
 
     @Override
@@ -68,13 +68,13 @@ public class HarvestServiceImpl implements HarvestService {
 
         Harvest harvest = harvestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Harvest not found with ID: " + id));
-        return harvestMapper.harvestToHarvestResponseDTO(harvest);
+        return harvestMapper.toResponse(harvest);
     }
 
     @Override
     public List<HarvestResponseDTO> getAllHarvests() {
 
-        return harvestRepository.findAll().stream().map(harvestMapper::harvestToHarvestResponseDTO).collect(Collectors.toList());
+        return harvestRepository.findAll().stream().map(harvestMapper::toResponse).collect(Collectors.toList());
 
     }
 }

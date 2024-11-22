@@ -27,15 +27,14 @@ public class FieldRestController {
     }
 
     @PostMapping
-    public ResponseEntity<FieldDTO> createField(@Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
-        FieldDTO createdfield = fieldService.createField(fieldRequestDTO);
+    public ResponseEntity<FieldResponseDTO> createField(@Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
+        FieldResponseDTO createdfield = fieldService.createField(fieldRequestDTO);
         return ResponseEntity.ok(createdfield);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FieldDTO> updateField(@PathVariable Long id, @Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
-        FieldDTO updatedfield = fieldService.updateField(id, fieldRequestDTO);
-        return ResponseEntity.ok(updatedfield);
+    public ResponseEntity<FieldResponseDTO> updateField(@PathVariable Long id, @Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
+        return ResponseEntity.ok(fieldService.updateField(id, fieldRequestDTO));
     }
 
     @DeleteMapping("/{id}")

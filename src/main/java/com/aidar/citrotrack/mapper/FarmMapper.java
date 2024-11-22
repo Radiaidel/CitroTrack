@@ -11,11 +11,8 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface FarmMapper {
 
-    FarmResponseDTO farmToFarmResponseDTO(Farm farm);
-
-    Farm farmRequestDTOToFarm(FarmRequestDTO farmRequestDTO);
-
-    FarmDTO farmToFarmDTO(Farm farm);
+    FarmResponseDTO toResponse(Farm farm);
+    Farm toEntity(FarmRequestDTO farmRequestDTO);
 
     @Mapping(target = "fields", ignore = true)
     void updateFarmFromDTO(FarmRequestDTO farmRequestDTO, @MappingTarget Farm farm);

@@ -29,7 +29,7 @@ public class FarmServiceImpl implements FarmService {
     }
 
     @Override
-    public FarmDTO createFarm(FarmRequestDTO farmRequestDTO) {
+    public FarmResponseDTO createFarm(FarmRequestDTO farmRequestDTO) {
         Farm farm = Farm.builder()
                 .name(farmRequestDTO.getName())
                 .location(farmRequestDTO.getLocation())
@@ -39,14 +39,14 @@ public class FarmServiceImpl implements FarmService {
 
         farm = farmRepository.save(farm);
 
-        return farmMapper.farmToFarmDTO(farm);
+        return farmMapper.toResponse(farm);
     }
 
     @Override
     public List<FarmResponseDTO> getAllFarms() {
         return farmRepository.findAll()
                 .stream()
-                .map(farmMapper::farmToFarmResponseDTO)
+                .map(farmMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -54,7 +54,7 @@ public class FarmServiceImpl implements FarmService {
     public FarmResponseDTO getFarmById(Long id) {
         Farm farm = farmRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + id));
-        return farmMapper.farmToFarmResponseDTO(farm);
+        return farmMapper.toResponse(farm);
     }
 
 //    @Override
@@ -74,16 +74,16 @@ public class FarmServiceImpl implements FarmService {
 //    }
 
     @Override
-    public FarmDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO) {
+    public FarmResponseDTO updateFarm(Long id, FarmRequestDTO farmRequestDTO) {
         Farm existingFarm;
         farmRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + id));
 
 //        farmMapper.updateFarmFromDTO(farmRequestDTO, existingFarm);
-        existingFarm = farmMapper.farmRequestDTOToFarm(farmRequestDTO);
+        existingFarm = farmMapper.toEntity(farmRequestDTO);
         Farm savedFarm = farmRepository.save(existingFarm);
 
-        return farmMapper.farmToFarmDTO(savedFarm);
+        return farmMapper.toResponse(savedFarm);
     }
 
     @Override
@@ -105,6 +105,6 @@ public class FarmServiceImpl implements FarmService {
         if (creationDateTo != null) criteria.put("creationDateTo", creationDateTo);
 
 
-        return farmRepository.searchFarms(criteria).stream().map(farmMapper::farmToFarmResponseDTO).collect(Collectors.toList());
+        return farmRepository.searchFarms(criteria).stream().map(farmMapper::toResponse).collect(Collectors.toList());
     }
 }

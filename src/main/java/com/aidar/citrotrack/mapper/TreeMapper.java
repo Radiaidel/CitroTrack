@@ -9,10 +9,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel =  "spring")
 public interface TreeMapper {
-    TreeResponseDTO treeToTreeResponseDTO(Tree tree);
+    TreeResponseDTO toResponse(Tree tree);
 
     @Mapping(source = "fieldId", target = "field.id")
-    Tree treeRequestDTOToTree(TreeRequestDTO treeRequestDTO);
+    Tree toEntity(TreeRequestDTO treeRequestDTO);
 
     default Long mapHarvestDetailId(HarvestDetailId harvestDetailId) {
         return harvestDetailId != null ? harvestDetailId.getTreeId() : null;

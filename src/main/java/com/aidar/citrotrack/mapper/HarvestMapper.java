@@ -10,9 +10,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface HarvestMapper {
 
-    Harvest harvestRequestDTOToHarvest(HarvestRequestDTO harvestRequestDTO);
+    Harvest toEntity(HarvestRequestDTO harvestRequestDTO);
 
-    HarvestResponseDTO harvestToHarvestResponseDTO(Harvest harvest);
+    HarvestResponseDTO toResponse(Harvest harvest);
 
     default Long mapHarvestDetailId(HarvestDetailId harvestDetailId) {
         return harvestDetailId != null ? harvestDetailId.getHarvestId() : null;

@@ -12,13 +12,13 @@ import org.mapstruct.Mappings;
 public interface HarvestDetailMapper {
     @Mapping(source = "harvestId", target = "id.harvestId")
     @Mapping(source = "treeId", target = "id.treeId")
-    HarvestDetail harvestDetailRequestDTOToHarvestDetail(HarvestDetailRequestDTO harvestDetailRequestDTO);
+    HarvestDetail toEntity(HarvestDetailRequestDTO harvestDetailRequestDTO);
 
 
     @Mappings({
             @Mapping(source = "id.harvestId", target = "harvest.id"),
             @Mapping(source = "id.treeId", target = "tree.id"),
     })
-    HarvestDetailResponseDTO harvestDetailToHarvestDetailResponseDTO(HarvestDetail harvestDetail);
+    HarvestDetailResponseDTO toResponse(HarvestDetail harvestDetail);
 
 }

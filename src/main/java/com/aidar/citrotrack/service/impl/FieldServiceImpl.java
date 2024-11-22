@@ -29,7 +29,7 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public FieldDTO createField(FieldRequestDTO fieldRequestDTO) {
+    public FieldResponseDTO createField(FieldRequestDTO fieldRequestDTO) {
         Farm farm = farmRepository.findById(fieldRequestDTO.getFarmId())
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + fieldRequestDTO.getFarmId()));
 
@@ -40,14 +40,14 @@ public class FieldServiceImpl implements FieldService {
 
         field = fieldRepository.save(field);
 
-        return fieldMapper.fieldToFieldDTO(field);
+        return fieldMapper.toResponse(field);
     }
 
     @Override
     public List<FieldResponseDTO> getAllFields() {
         return fieldRepository.findAll()
                 .stream()
-                .map(fieldMapper::fieldToFieldResponseDTO)
+                .map(fieldMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -55,11 +55,11 @@ public class FieldServiceImpl implements FieldService {
     public FieldResponseDTO getFieldById(Long id) {
         Field field = fieldRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Field not found with ID: " + id));
-        return fieldMapper.fieldToFieldResponseDTO(field);
+        return fieldMapper.toResponse(field);
     }
 
     @Override
-    public FieldDTO updateField(Long id, FieldRequestDTO fieldRequestDTO) {
+    public FieldResponseDTO updateField(Long id, FieldRequestDTO fieldRequestDTO) {
         fieldRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Field not found with ID: " + id));
 
@@ -68,13 +68,13 @@ public class FieldServiceImpl implements FieldService {
 
 
 
-        Field field = fieldMapper.fieldRequestDTOToField(fieldRequestDTO);
+        Field field = fieldMapper.toEntity(fieldRequestDTO);
         field.setId(id);
 
         field = fieldRepository.save(field);
 
 
-        return fieldMapper.fieldToFieldDTO(field);
+        return fieldMapper.toResponse(field);
     }
 
     @Override
