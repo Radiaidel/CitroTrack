@@ -1,18 +1,19 @@
 package com.aidar.citrotrack.service;
 
+import com.aidar.citrotrack.dto.Field.FieldDTO;
 import com.aidar.citrotrack.dto.Field.FieldRequestDTO;
 import com.aidar.citrotrack.dto.Field.FieldResponseDTO;
 
 import java.util.List;
 
 public interface FieldService {
-    FieldResponseDTO createField(FieldRequestDTO fieldRequestDTO);
+    FieldDTO createField(FieldRequestDTO fieldRequestDTO);
 
     List<FieldResponseDTO> getAllFields();
 
     FieldResponseDTO getFieldById(Long id);
 
-    FieldResponseDTO updateField(Long id, FieldRequestDTO fieldRequestDTO);
+    FieldDTO updateField(Long id, FieldRequestDTO fieldRequestDTO);
 
     void deleteField(Long id);
 }

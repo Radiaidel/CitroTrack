@@ -1,6 +1,7 @@
 package com.aidar.citrotrack.controller;
 
 
+import com.aidar.citrotrack.dto.Field.FieldDTO;
 import com.aidar.citrotrack.dto.Field.FieldRequestDTO;
 import com.aidar.citrotrack.dto.Field.FieldResponseDTO;
 import com.aidar.citrotrack.service.FieldService;
@@ -26,14 +27,14 @@ public class FieldRestController {
     }
 
     @PostMapping
-    public ResponseEntity<FieldResponseDTO> createField(@Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
-        FieldResponseDTO createdfield = fieldService.createField(fieldRequestDTO);
+    public ResponseEntity<FieldDTO> createField(@Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
+        FieldDTO createdfield = fieldService.createField(fieldRequestDTO);
         return ResponseEntity.ok(createdfield);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FieldResponseDTO> updateField(@PathVariable Long id, @Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
-        FieldResponseDTO updatedfield = fieldService.updateField(id, fieldRequestDTO);
+    public ResponseEntity<FieldDTO> updateField(@PathVariable Long id, @Valid @RequestBody FieldRequestDTO fieldRequestDTO) {
+        FieldDTO updatedfield = fieldService.updateField(id, fieldRequestDTO);
         return ResponseEntity.ok(updatedfield);
     }
 

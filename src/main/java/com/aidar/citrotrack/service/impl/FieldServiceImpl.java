@@ -1,5 +1,6 @@
 package com.aidar.citrotrack.service.impl;
 
+import com.aidar.citrotrack.dto.Field.FieldDTO;
 import com.aidar.citrotrack.dto.Field.FieldRequestDTO;
 import com.aidar.citrotrack.dto.Field.FieldResponseDTO;
 import com.aidar.citrotrack.model.Farm;
@@ -28,7 +29,7 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public FieldResponseDTO createField(FieldRequestDTO fieldRequestDTO) {
+    public FieldDTO createField(FieldRequestDTO fieldRequestDTO) {
         Farm farm = farmRepository.findById(fieldRequestDTO.getFarmId())
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + fieldRequestDTO.getFarmId()));
 
@@ -39,7 +40,7 @@ public class FieldServiceImpl implements FieldService {
 
         field = fieldRepository.save(field);
 
-        return fieldMapper.fieldToFieldResponseDTO(field);
+        return fieldMapper.fieldToFieldDTO(field);
     }
 
     @Override
@@ -58,22 +59,22 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public FieldResponseDTO updateField(Long id, FieldRequestDTO fieldRequestDTO) {
-        Field field = fieldRepository.findById(id)
+    public FieldDTO updateField(Long id, FieldRequestDTO fieldRequestDTO) {
+        fieldRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Field not found with ID: " + id));
 
-        Farm farm = farmRepository.findById(fieldRequestDTO.getFarmId())
+        farmRepository.findById(fieldRequestDTO.getFarmId())
                 .orElseThrow(() -> new RuntimeException("Farm not found with ID: " + fieldRequestDTO.getFarmId()));
 
 
 
-        field = fieldMapper.fieldRequestDTOToField(fieldRequestDTO);
+        Field field = fieldMapper.fieldRequestDTOToField(fieldRequestDTO);
         field.setId(id);
 
         field = fieldRepository.save(field);
 
 
-        return fieldMapper.fieldToFieldResponseDTO(field);
+        return fieldMapper.fieldToFieldDTO(field);
     }
 
     @Override

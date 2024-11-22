@@ -1,6 +1,7 @@
 package com.aidar.citrotrack.service.impl;
 
 import com.aidar.citrotrack.dto.Farm.FarmDTO;
+import com.aidar.citrotrack.dto.Field.FieldDTO;
 import com.aidar.citrotrack.dto.Field.FieldRequestDTO;
 import com.aidar.citrotrack.dto.Field.FieldResponseDTO;
 import com.aidar.citrotrack.mapper.FieldMapper;
@@ -84,7 +85,7 @@ public class FieldServiceImplTest {
         when(fieldRepository.save(any(Field.class))).thenReturn(field);
         when(fieldMapper.fieldToFieldResponseDTO(field)).thenReturn(fieldResponseDTO);
 
-        FieldResponseDTO result = fieldService.createField(fieldRequestDTO);
+        FieldDTO result = fieldService.createField(fieldRequestDTO);
 
         assertNotNull(result);
         assertEquals(1L, result.getId());
@@ -144,7 +145,7 @@ public class FieldServiceImplTest {
         when(fieldRepository.save(field)).thenReturn(field);
         when(fieldMapper.fieldToFieldResponseDTO(field)).thenReturn(fieldResponseDTO);
 
-        FieldResponseDTO result = fieldService.updateField(1L, fieldRequestDTO);
+        FieldDTO result = fieldService.updateField(1L, fieldRequestDTO);
 
         assertNotNull(result);
         assertEquals(1L, result.getId());
