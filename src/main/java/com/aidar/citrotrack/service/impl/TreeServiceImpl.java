@@ -4,12 +4,14 @@ import com.aidar.citrotrack.dto.Tree.TreeRequestDTO;
 import com.aidar.citrotrack.dto.Tree.TreeResponseDTO;
 import com.aidar.citrotrack.model.Field;
 import com.aidar.citrotrack.model.Tree;
+import com.aidar.citrotrack.model.enums.TreeProductivity;
 import com.aidar.citrotrack.repository.FieldRepository;
 import com.aidar.citrotrack.repository.TreeRepository;
 import com.aidar.citrotrack.service.TreeService;
 import com.aidar.citrotrack.mapper.TreeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,25 +36,33 @@ public class TreeServiceImpl implements TreeService {
 
         Tree tree = Tree.builder().plantingDate(treeRequestDTO.getPlantingDate()).field(field).build();
         treeRepository.save(tree);
+
+        int age = TreeProductivity.calculateAge(tree.getPlantingDate());
+        tree.setAge(age);
+        tree.setProductivity(TreeProductivity.getProductivityByAge(age));
+        tree.setHarvestDetails(new ArrayList<>());
         return treeMapper.treeToTreeResponseDTO(tree);
     }
 
     @Override
     public TreeResponseDTO updateTree(Long id, TreeRequestDTO treeRequestDTO) {
 
-        Tree tree = treeRepository.findById(id)
+        treeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tree not found with ID: " + id));
 
-        Field field = fieldRepository.findById(treeRequestDTO.getFieldId())
+        fieldRepository.findById(treeRequestDTO.getFieldId())
                 .orElseThrow(() -> new RuntimeException("Field not found with ID: " + treeRequestDTO.getFieldId()));
 
 
-
-        tree = treeMapper.treeRequestDTOToTree(treeRequestDTO);
+        Tree tree = treeMapper.treeRequestDTOToTree(treeRequestDTO);
         tree.setId(id);
 
         tree = treeRepository.save(tree);
 
+        int age = TreeProductivity.calculateAge(tree.getPlantingDate());
+        tree.setAge(age);
+        tree.setProductivity(TreeProductivity.getProductivityByAge(age));
+        tree.setHarvestDetails(new ArrayList<>());
 
         return treeMapper.treeToTreeResponseDTO(tree);
     }
@@ -70,13 +80,25 @@ public class TreeServiceImpl implements TreeService {
 
         Tree tree = treeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tree not found with ID: " + id));
+
+        int age = TreeProductivity.calculateAge(tree.getPlantingDate());
+        tree.setAge(age);
+        tree.setProductivity(TreeProductivity.getProductivityByAge(age));
+        tree.setHarvestDetails(new ArrayList<>());
+
         return treeMapper.treeToTreeResponseDTO(tree);
     }
 
     @Override
     public List<TreeResponseDTO> getAllTrees() {
-
-        return treeRepository.findAll().stream().map(treeMapper::treeToTreeResponseDTO).collect(Collectors.toList());
-
+        return treeRepository.findAll().stream()
+                .peek(tree -> {
+                    int age = TreeProductivity.calculateAge(tree.getPlantingDate());
+                    tree.setAge(age);
+                    tree.setProductivity(TreeProductivity.getProductivityByAge(age));
+                    tree.setHarvestDetails(new ArrayList<>());
+                })
+                .map(treeMapper::treeToTreeResponseDTO)
+                .collect(Collectors.toList());
     }
 }

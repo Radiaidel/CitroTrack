@@ -17,5 +17,6 @@ import java.time.LocalDate;
 public class TreeDTO {
     private Long id;
     private LocalDate plantingDate;
+    private int age ;
     private TreeProductivity productivity;
 }

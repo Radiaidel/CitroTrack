@@ -8,6 +8,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,7 +36,11 @@ public class Tree {
     @Transient
     private TreeProductivity productivity;
 
+    @Transient
+    private int age;
+
     @OneToMany(mappedBy = "tree", fetch = FetchType.LAZY)
-    private List<HarvestDetail> harvestDetails;
+    private List<HarvestDetail> harvestDetails= new ArrayList<HarvestDetail>();
+
 
 }
