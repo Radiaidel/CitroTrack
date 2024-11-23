@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "740cb49d-e8fc-4d23-b63c-dfe6a6d6b27c",
+		"name": "citroTrack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33948002"
+	},
+	"item": [
+		{
+			"name": "Farm",
+			"item": [
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "search without args",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/farms/search"
+							},
+							"response": []
+						},
+						{
+							"name": "search by all args",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/farms/search?location=taddart&minArea=0.1&maxArea=50&creationDateFrom=2000-01-01&creationDateTo=2023-12-31&name=farms",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"farms",
+										"search"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "taddart"
+										},
+										{
+											"key": "minArea",
+											"value": "0.1"
+										},
+										{
+											"key": "maxArea",
+											"value": "50"
+										},
+										{
+											"key": "creationDateFrom",
+											"value": "2000-01-01"
+										},
+										{
+											"key": "creationDateTo",
+											"value": "2023-12-31"
+										},
+										{
+											"key": "name",
+											"value": "farms"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "addFarm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"farm1\",\r\n  \"location\": \"taddart\",\r\n  \"totalArea\": 0.1,\r\n  \"creationDate\": \"2024-11-01\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/farms"
+					},
+					"response": []
+				},
+				{
+					"name": "getFarmById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/farms/1"
+					},
+					"response": []
+				},
+				{
+					"name": "updateFarm",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated Sunny Farms\",\r\n  \"location\": \"Texas, USA\",\r\n  \"totalArea\": 150.0,\r\n  \"creationDate\": \"2023-11-01\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/farms/3"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFarm",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/farms/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllFarms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/farms"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Field",
+			"item": [
+				{
+					"name": "getAllFields",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/fields"
+					},
+					"response": []
+				},
+				{
+					"name": "createField",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"area\": 5.0,\r\n    \"farmId\": 7\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/fields"
+					},
+					"response": []
+				},
+				{
+					"name": "updateField",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"area\": 1.0,\r\n    \"farmId\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/fields/2"
+					},
+					"response": []
+				},
+				{
+					"name": "getField",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/fields/7"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteField",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/fields/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tree",
+			"item": [
+				{
+					"name": "getAllTrees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/trees"
+					},
+					"response": []
+				},
+				{
+					"name": "createTree",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plantingDate\": \"2025-11-10\",\r\n  \"fieldId\": 13\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/trees"
+					},
+					"response": []
+				},
+				{
+					"name": "updateTree",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plantingDate\": \"2023-11-10\",\r\n  \"fieldId\": 7\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/trees/1"
+					},
+					"response": []
+				},
+				{
+					"name": "getTreeById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/trees/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTree",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/trees/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Harvest",
+			"item": [
+				{
+					"name": "getAllHarvests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/harvests"
+					},
+					"response": []
+				},
+				{
+					"name": "createHarvest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"harvestDate\": \"2023-01-15\",\r\n  \"fieldId\" : 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/harvests"
+					},
+					"response": []
+				},
+				{
+					"name": "updateHarvest",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"harvestDate\": \"2024-11-15\",\r\n  \"fieldId\" : 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/harvests/3"
+					},
+					"response": []
+				},
+				{
+					"name": "getHarvestById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/harvests/3"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteHarvest",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/harvests/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HarvestDetails",
+			"item": [
+				{
+					"name": "createHarvestDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"harvestId\": 2,\r\n  \"treeId\": 35,\r\n  \"quantity\": 7\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/harvest-details"
+					},
+					"response": []
+				},
+				{
+					"name": "getHarvestDetailsByHarvest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/harvest-details/harvest/2"
+					},
+					"response": []
+				},
+				{
+					"name": "updateHarvestDetails",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quantity\": 12.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/harvest-details/2/2"
+					},
+					"response": []
+				},
+				{
+					"name": "getHarvestDetail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/harvest-details/2/2"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteHarvestDetails",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/harvest-details/1/34"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sale",
+			"item": [
+				{
+					"name": "getAllSales",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "createSale",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"unitPrice\": 150.0,\r\n    \"quantitySold\": 10,\r\n    \"dateSold\": \"2024-11-18\",\r\n    \"customer\": {\r\n        \"fullName\": \"John Doe\",\r\n        \"email\": \"john.doe@example.com\"\r\n    },\r\n    \"harvestId\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/sales"
+					},
+					"response": []
+				},
+				{
+					"name": "updateSale",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"unitPrice\": 100.0,\r\n    \"quantitySold\": 10,\r\n    \"dateSold\": \"2024-11-18\",\r\n    \"customer\": {\r\n        \"fullName\": \"John Doe\",\r\n        \"email\": \"john.doe@example.com\"\r\n    },\r\n    \"harvestId\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/sales/2"
+					},
+					"response": []
+				},
+				{
+					"name": "getSleById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/sales/2"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSale",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/sales/2"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
